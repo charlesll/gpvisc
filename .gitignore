@@ -1,4 +1,8 @@
 .ipynb_checkpoints
 __pycache__
+my_dir
 .DS_Store
-.joblib
+dev
+models
+outputs
+clf*
