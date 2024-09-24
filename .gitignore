@@ -3,6 +3,10 @@ __pycache__
 my_dir
 .DS_Store
 dev
-models
+code_paper_EPSL/models/
+code_paper_EPSL/GNN_tuning/
+figures
+build
 outputs
 clf*
+gpvisc.egg-info
