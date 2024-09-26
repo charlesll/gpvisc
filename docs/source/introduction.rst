@@ -18,6 +18,10 @@ We also added experimental viscosity data from SciGlass, for melt compositions t
 
 The final database contains 28,868 viscosity measurements. It includes data from unary, binary, ternary, quaternary, and multivalent melt compositions, at temperatures spanning superliquidus to undercooled conditions and pressures up to 30 GPa. 
 
+The data are available in the folder `code_paper_EPSL/additional_data <https://github.com/charlesll/gpvisc/tree/master/code_paper_EPSL/additional_data>`_ and here:
+
+Ferraina, Clement; Baldoni, Barbara; Le Losq, Charles, 2024, "Silicate melt viscosity database for gpvisc", `https://doi.org/10.18715/IPGP.2024.lycv4gsa <https://doi.org/10.18715/IPGP.2024.lycv4gsa>`_, IPGP Research Collection, DRAFT VERSION 
+
 The GP model
 ------------
 
