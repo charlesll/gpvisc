@@ -21,7 +21,9 @@ release = '0.3.3'
 extensions = ['sphinx.ext.autosectionlabel',
               'sphinx.ext.coverage', 
               'sphinx.ext.napoleon',
-              'sphinx.ext.autodoc']
+              'sphinx.ext.autodoc',
+              'sphinx.ext.githubpages'
+              ]
 
 templates_path = ['_templates']
 exclude_patterns = []
