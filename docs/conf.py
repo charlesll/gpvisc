@@ -7,13 +7,13 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'gpvisc'
-copyright = '2024, Charles Le Losq, Clément Ferraina'
-author = 'Charles Le Losq, Clément Ferraina'
-release = '0.3.1'
+copyright = '2024, Charles Le Losq, Clément Ferraina, Paolo Sossi, Charles-Edouard Boukaré'
+author = 'Charles Le Losq, Clément Ferraina, Paolo Sossi, Charles-Edouard Boukaré'
+release = '0.3.3'
 
-import os
-import sys
-sys.path.insert(0, os.path.abspath('..'))
+#import os
+#import sys
+#sys.path.insert(0, os.path.abspath('..'))
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
