@@ -29,6 +29,7 @@ Le Losq C., Ferraina C., Sossi P. A., Boukaré C.-É. (2024). charlesll/gpvisc: 
    predictions
    tutorials 
    web
+   authors
    references
 
 Indices and tables

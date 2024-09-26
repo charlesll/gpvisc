@@ -17,4 +17,5 @@ Charles-Édouard Boukaré, York University
 Author contribution statement
 -----------------------------
 
-CLL and CF: data collection, gpvisc main code, model training. PS and CEB: data and code for magma ocean calculations.
+CLL and CF: data collection, gpvisc main code, model training. 
+PS and CEB: data and code for magma ocean calculations.
