@@ -1,10 +1,8 @@
 # GPVisc
 =========
 
-[![Build Status](https://travis-ci.org/charlesll/rampy.svg?branch=master)](https://travis-ci.org/charlesll/rampy)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1168729.svg)](https://doi.org/10.5281/zenodo.1168729) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/charlesll/rampy.git/master)
-![GitHub](https://img.shields.io/github/license/charlesll/rampy)
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13843250.svg)](https://zenodo.org/records/13843250) 
+![GitHub](https://img.shields.io/github/license/charlesll/gpvisc)
 
 GPVisc is a Python module containing a Gaussian Process - Artificial Neural Network of melt viscosity.
 
