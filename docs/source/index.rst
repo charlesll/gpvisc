@@ -22,6 +22,10 @@ To use the model, we provide gpvisc as a Python library. Jupyter Notebooks are p
 
 Please follow the tutorials of this documentation to perform predictions!
 
+If you use this package, please cite it using this citation key:
+
+Le Losq, C., & Ferraina, C. (2024). charlesll/gpvisc: v0.3.3 (v0.3.3). Zenodo. `https://doi.org/10.5281/zenodo.13843250 <https://doi.org/10.5281/zenodo.13843250>`_
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
