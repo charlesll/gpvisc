@@ -26,25 +26,29 @@ After importing the model, make your predictions using the `gpvisc.predict` func
 
 .. code-block:: python
 
-    visco_mean, visco_std = predict(ptxi_scaled, gp_model, likelihood, device = device)
+    viscosity_mean, viscosity_std = predict(tpxi_scaled, gp_model, likelihood, device = device)
 
 Note that you can also query predictions from the mean Greybox artificial neural network that is used in the GP model as the mean function. This model provides predictions that are a little bit less accurate, but inference time are much faster:
 
 .. code-block:: python
 
-    viscosity = predict(ptxi_scaled, gp_model, likelihood, model_to_use = "ann", device = device)
+    viscosity = predict(tpxi_scaled, gp_model, likelihood, model_to_use = "ann", device = device)
 
 In this case, only one value per query is returned. No uncertainty determination is performed.
 
 Prediction outputs
 ------------------ 
 
-The new `predict` function outputs the mean and the standard deviation of the Gaussian process. Therefore, in the above example, `visco_mean` is the predicted and `visco_std` is the standard error.
+The `gpvisc.predict` function outputs the mean and the standard deviation of the Gaussian process. Therefore, in the above example, `viscosity_mean` is the predicted viscosity in $\log_{10}$ Pa$\cdot$s and `viscosity_std` is the associated standard error.
 
 For further details, please consult the Simple_prediction.ipynb and the Peridotite.ipynb Jupyter notebooks, see the section :doc:`tutorials`.
 
 Checking for extrapolation
 --------------------------
 
-ML algorithms are not very good at performing extrapolation, i.e. at providing estimates for inputs that are outside the range of the training data.
+ML algorithms are not very good at performing extrapolation, i.e. at providing estimates for inputs that are outside the range of the training data. At room pressure, the database of the `gpvisc`` model is very broad in terms of compositions and temperature. It thus is unlikely that users ask for queries that are in the "extrapolative regime", i.e. querying viscosity predictions for compositions and temperatures outside the domain covered by the database. But it can happen. At high pressure, this is even more true because the high pressure portion of the database is sparse, owing to the rarity of high pressure viscosity data on silicate melts.
+
+Therefore, when asking for predictions for "exotic" compositions or at high pressure, we recommend checking that the model is not extrapolating. To do so, one simply compares the predictions of the three provided GP models. If predictions are comparable within error bars, they are robust. If they diverge significantly, this indicates that the model is extrapolating and that results are probably not robust. 
+
+For code implementation, please see the notebook `Extrapolations.ipynb <https://github.com/charlesll>`_.
 

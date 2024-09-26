@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to GP-melt's documentation!
+Welcome to gpvisc's documentation!
 ===================================
 
 Copyright (2024) C. Le Losq and co.
@@ -14,11 +14,11 @@ lelosq@ipgp.fr
 Clément Ferraina, Institut de physique du globe de Paris, University Paris Cité
 ferraina@ipgp.fr
 
-GP-Visc is a machine learning model trained to predict the viscosity of phosphate and aluminosilicate melts.
+gpvisc is a machine learning model trained to predict the viscosity of phospho-alumino-silicate melts.
 
-It is trained on a extensive database, comprising more than 5,000 different melt compositions for a total of more thanan 28,000 viscosity data points. For some compositions like peridotite, predictions are possible up to 30 GPa. The database is available here. The code is open source on Github.com/charlesll/gp-visc.
+It is trained on a extensive database, comprising more than 5,000 different melt compositions for a total of more than 28,000 viscosity data points. For some compositions like peridotite, predictions are even possible at pressures up to 30 GPa. The database is available here. The code is open source on `Github.com/charlesll/gpvisc <https://github.com/charlesll/gpvisc>`_.
 
-To use the model, we provide GP-Visc as a Python library, Jupyter Notebooks also are provided with examples, and a website also is available.
+To use the model, we provide gpvisc as a Python library. Jupyter Notebooks are provided as examples of use. A Streamlit version is under construction.
 
 Please follow the tutorials of this documentation to perform predictions!
 
@@ -31,6 +31,7 @@ Please follow the tutorials of this documentation to perform predictions!
    predictions
    tutorials 
    web
+   references
 
 Indices and tables
 ==================

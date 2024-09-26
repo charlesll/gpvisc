@@ -1,10 +1,6 @@
 Inputs
 ======
 
-The GP model handles melt compositions containing the following oxides: SiO\ :sub:`2`\, TiO\ :sub:`2`\, Al\ :sub:`2`\ O\ :sub:`3`\, FeO, Fe\ :sub:`2`\O\ :sub:`3`\, MnO, Na\ :sub:`2`\O, K\ :sub:`2`\O, MgO, CaO, P\ :sub:`2`\O\ :sub:`5`\, H\ :sub:`2`\O.
-
-It further takes temperature in units of 1000/Kelvins, and scaled pressure as GPa/30.0
-
 Input composition for GP
 ------------------------
 
@@ -109,8 +105,8 @@ Helper functions to create queries
 
 The above steps are automated in two helper functions:
 
-- the function `generate_query_single` generates a query for a given composition following a range of temperature, pressure and oxygen fugacity conditions.
-- the function `generate_query_range` generates a query for a range of compositions.
+- `generate_query_single` generates a query for a given composition following a range of temperature, pressure and oxygen fugacity conditions.
+- `generate_query_range` generates a query for a range of compositions.
 
 You can directly indicate the composition you want in `generate_query_single`. It also handles weight to mol convertion as well as determination of Fe redox state. Here is an example of input of a melt composition in wt%, asking for 50 values at 0 GPa and T between 1050 and 2000 K, and log fO2 between -12 and -5.
 
@@ -171,5 +167,15 @@ To prepare the final array for predictions, use the function `gpvisc.scale_for_g
 .. code-block:: python
 
     X_for_GP = gpvisc.scale_for_gaussianprocess(temperature_vector, pressure_vector, compo_for_GP)
+
+If you used the above described helper functions, here is how you can scale things:
+
+.. code-block:: python
+
+    tpxi_scaled = gpvisc.scale_for_gaussianprocess( 
+                               Inputs_.loc[:,"T"], # temperature input
+                               Inputs_.loc[:,"P"], # pressure input
+                               Inputs_.loc[:,gpvisc.list_oxides()] # composition input
+                               )
 
 You are now ready to perform a query using the GP model!

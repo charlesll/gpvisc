@@ -6,10 +6,10 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'GP-melt'
+project = 'gpvisc'
 copyright = '2024, Charles Le Losq, Clément Ferraina'
 author = 'Charles Le Losq, Clément Ferraina'
-release = '0.1'
+release = '0.3.1'
 
 import os
 import sys
@@ -25,15 +25,6 @@ extensions = ['sphinx.ext.autosectionlabel',
 
 templates_path = ['_templates']
 exclude_patterns = []
-
-# -- Project information -----------------------------------------------------
-
-project = 'GP-visc'
-copyright = '2024, Charles Le Losq et co.'
-author = 'Charles Le Losq, Clément Ferraina, Charles-Édouard Boukaré'
-
-# The full version, including alpha/beta/rc tags
-release = '0.5.0'
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
