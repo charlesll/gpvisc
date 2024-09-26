@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inputs &mdash; gpvisc 0.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=4621528c"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Predictions" href="predictions.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            gpvisc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Inputs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-composition-for-gp">Input composition for GP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#indicate-a-composition-in-a-python-dictionnary">Indicate a composition in a Python dictionnary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-a-composition-from-excel-libre-office">Import a composition from Excel/Libre Office</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dealing-with-iron-oxidation-state">Dealing with iron oxidation state</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#final-preparation-of-melt-composition">Final preparation of melt composition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#temperature-and-pressure">Temperature and pressure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#helper-functions-to-create-queries">Helper functions to create queries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#final-preparation-for-import-in-gp-model">Final preparation for import in GP model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="predictions.html">Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">Web service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpvisc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Inputs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/inputs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="inputs">
+<h1>Inputs<a class="headerlink" href="#inputs" title="Link to this heading"></a></h1>
+<section id="input-composition-for-gp">
+<h2>Input composition for GP<a class="headerlink" href="#input-composition-for-gp" title="Link to this heading"></a></h2>
+<p>Input compositions for the GP model are mole fractions of the oxides components SiO<sub>2</sub>, TiO<sub>2</sub>, Al<sub>2</sub>O<sub>3</sub>, FeO, Fe<sub>2</sub>O<sub>3</sub>, MnO, Na<sub>2</sub>O, K<sub>2</sub>O, MgO, CaO, P<sub>2</sub>O<sub>5</sub>, H<sub>2</sub>O, in this respective order.</p>
+</section>
+<section id="indicate-a-composition-in-a-python-dictionnary">
+<h2>Indicate a composition in a Python dictionnary<a class="headerlink" href="#indicate-a-composition-in-a-python-dictionnary" title="Link to this heading"></a></h2>
+<p>An easy and direct way to input a melt composition is to provide it as a Python dictionnary in a <a class="reference external" href="https://pandas.pydata.org/">Pandas</a> DataFrame:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_composition</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sio2&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.60</span><span class="p">,]),</span>
+                <span class="s2">&quot;tio2&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.02</span><span class="p">,]),</span>
+                <span class="s2">&quot;al2o3&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.12</span><span class="p">,]),</span>
+                <span class="s2">&quot;feo&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.07</span><span class="p">,]),</span>
+                <span class="s2">&quot;fe2o3&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.00</span><span class="p">]),</span>
+                <span class="s2">&quot;mno&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.00</span><span class="p">,]),</span>
+                <span class="s2">&quot;na2o&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.03</span><span class="p">,]),</span>
+                <span class="s2">&quot;k2o&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.03</span><span class="p">,]),</span>
+                <span class="s2">&quot;mgo&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.07</span><span class="p">,]),</span>
+                <span class="s2">&quot;cao&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,]),</span>
+                <span class="s2">&quot;p2o5&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.00</span><span class="p">,]),</span>
+                <span class="s2">&quot;h2o&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,])}</span>
+<span class="n">ds_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">my_composition</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You could also write a smaller composition, even in mole percent:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_composition</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;sio2&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">60.0</span><span class="p">,]),</span>
+                  <span class="s2">&quot;al2o3&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">10.0</span><span class="p">,]),</span>
+                  <span class="s2">&quot;mgo&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">30.0</span><span class="p">,])}</span>
+<span class="n">ds_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">my_composition</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case, always call the function <cite>gpvisc.chimie_control()</cite> to add the other oxides and make everything right:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds_</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">chimie_control</span><span class="p">(</span><span class="n">ds_</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If your composition is in weight percent, you can call the function <cite>gpvisc.wt_mol()</cite> to convert it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds_</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">wt_mol</span><span class="p">(</span><span class="n">ds_</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="import-a-composition-from-excel-libre-office">
+<h2>Import a composition from Excel/Libre Office<a class="headerlink" href="#import-a-composition-from-excel-libre-office" title="Link to this heading"></a></h2>
+<p>You can import a spreadsheet with <a class="reference external" href="https://pandas.pydata.org/">Pandas</a>, and then as it does not contain columns for some elements, we always call the function <cite>gpvisc.chimie_control()</cite> to add them and put everything in fractions. Then, if necessary, a convertion in mole fractions can be performed using the <cite>gpvisc.wt_mol()</cite> function. Here an example to import a spreadsheet named “compositions.xlsx”:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">db</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s2">&quot;./additional_data/compositions.xlsx&quot;</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">chimie_control</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+<span class="n">db_mol</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">wt_mol</span><span class="p">(</span><span class="n">db</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="dealing-with-iron-oxidation-state">
+<h2>Dealing with iron oxidation state<a class="headerlink" href="#dealing-with-iron-oxidation-state" title="Link to this heading"></a></h2>
+<p>If you need to calculate the redox state of iron, you can use the function <cite>gpvisc.redox</cite></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">absolute_fo2</span> <span class="o">=</span> <span class="mf">0.21</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mf">1273.0</span>
+<span class="n">redox_model</span> <span class="o">=</span> <span class="s2">&quot;B2018&quot;</span>
+<span class="n">gpv</span><span class="o">.</span><span class="n">redox</span><span class="p">(</span><span class="n">db_mol</span><span class="p">,</span> <span class="n">absolute_fo2</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">redox_model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You will then need to recalculate your colums <cite>feo</cite> and <cite>fe2o3</cite> depending on the results of this calculation.</p>
+</section>
+<section id="final-preparation-of-melt-composition">
+<h2>Final preparation of melt composition<a class="headerlink" href="#final-preparation-of-melt-composition" title="Link to this heading"></a></h2>
+<p>A final step prior to inputing the melt composition as a query in the GP model is required: the columns need to be in a particular order, and the input composition array needs to only contain 12 columns containing oxides mole fractions. The above Pandas dataframes can contain much more information than that.</p>
+<p>This is easily performed using the following command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">compo_for_GP</span> <span class="o">=</span> <span class="n">db_mol</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">list_oxides</span><span class="p">()]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The <cite>gpvisc.list_oxides</cite> function contains a list of the oxide components in the good order, such that by using the following Pandas query we obtain a Pandas dataframe with the right columns. We ask for a copy at the end to avoid any problem.</p>
+</section>
+<section id="temperature-and-pressure">
+<h2>Temperature and pressure<a class="headerlink" href="#temperature-and-pressure" title="Link to this heading"></a></h2>
+<p>Temperature and pressure should be vectors or lists of the same size.</p>
+<p>You can build them using the numpy functions <cite>numpy.arange()</cite> or <cite>numpy.linspace()</cite>, see their relevant documentation.</p>
+<p>We provide a small example below. We want temperature from 500 to 3000 K, every 1 K, and pressure will be kept constant at 0 GPa = 1 atm.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">temperature_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">500.0</span><span class="p">,</span><span class="mf">3000.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="n">pressure_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">temperature_vector</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="helper-functions-to-create-queries">
+<h2>Helper functions to create queries<a class="headerlink" href="#helper-functions-to-create-queries" title="Link to this heading"></a></h2>
+<p>The above steps are automated in two helper functions:</p>
+<ul class="simple">
+<li><p><cite>generate_query_single</cite> generates a query for a given composition following a range of temperature, pressure and oxygen fugacity conditions.</p></li>
+<li><p><cite>generate_query_range</cite> generates a query for a range of compositions.</p></li>
+</ul>
+<p>You can directly indicate the composition you want in <cite>generate_query_single</cite>. It also handles weight to mol convertion as well as determination of Fe redox state. Here is an example of input of a melt composition in wt%, asking for 50 values at 0 GPa and T between 1050 and 2000 K, and log fO2 between -12 and -5.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Inputs_</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">generate_query_single</span><span class="p">(</span><span class="n">sio2</span><span class="o">=</span><span class="mf">60.0</span><span class="p">,</span>
+                   <span class="n">tio2</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                   <span class="n">al2o3</span><span class="o">=</span><span class="mf">9.0</span><span class="p">,</span>
+                   <span class="n">feo</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+                   <span class="n">fe2o3</span><span class="o">=</span><span class="mf">0.00</span><span class="p">,</span>
+                   <span class="n">mno</span><span class="o">=</span><span class="mf">0.00</span><span class="p">,</span>
+                   <span class="n">na2o</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+                   <span class="n">k2o</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+                   <span class="n">mgo</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span>
+                   <span class="n">cao</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                   <span class="n">p2o5</span><span class="o">=</span><span class="mf">0.00</span><span class="p">,</span>
+                   <span class="n">h2o</span><span class="o">=</span><span class="mf">0.00</span><span class="p">,</span>
+                   <span class="n">composition_mole</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                   <span class="n">control_redox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">T_init</span><span class="o">=</span><span class="mf">1050.</span><span class="p">,</span>
+                   <span class="n">T_final</span><span class="o">=</span><span class="mf">2000.</span><span class="p">,</span>
+                   <span class="n">P_init</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                   <span class="n">P_final</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                   <span class="n">nb_values</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In <cite>generate_query_range</cite>, you need to provide a dictionary that contains the range of compositions you want to cover. Here is an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">oxide_ranges</span> <span class="o">=</span> <span class="p">{</span>
+<span class="s1">&#39;sio2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">50.5</span><span class="p">,</span> <span class="mf">77.</span><span class="p">],</span>
+<span class="s1">&#39;tio2&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span>
+<span class="s1">&#39;al2o3&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">14.7</span><span class="p">,</span> <span class="mf">13.</span><span class="p">],</span>
+<span class="s2">&quot;feo&quot;</span><span class="p">:[</span><span class="mf">10.4</span><span class="p">,</span><span class="mf">1.</span><span class="p">],</span>
+<span class="s2">&quot;fe2o3&quot;</span><span class="p">:[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],</span>
+<span class="s2">&quot;mno&quot;</span><span class="p">:[</span><span class="mf">0.</span><span class="p">,</span><span class="mf">0.</span><span class="p">],</span>
+<span class="s2">&quot;na2o&quot;</span><span class="p">:[</span><span class="mf">2.8</span><span class="p">,</span><span class="mf">3.4</span><span class="p">],</span>
+<span class="s2">&quot;k2o&quot;</span><span class="p">:[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">5.3</span><span class="p">],</span>
+<span class="s2">&quot;mgo&quot;</span><span class="p">:[</span><span class="mf">7.58</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span>
+<span class="s2">&quot;cao&quot;</span><span class="p">:[</span><span class="mf">11.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">],</span>
+<span class="s2">&quot;p2o5&quot;</span><span class="p">:[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span>
+<span class="s2">&quot;h2o&quot;</span><span class="p">:[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">5.</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">Inputs_range</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">generate_query_range</span><span class="p">(</span><span class="n">oxide_ranges</span><span class="p">,</span>
+                                            <span class="n">composition_mole</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                            <span class="n">T_init</span><span class="o">=</span><span class="mi">1473</span><span class="p">,</span> <span class="n">T_final</span><span class="o">=</span><span class="mi">1073</span><span class="p">,</span>
+                                            <span class="n">P_init</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">P_final</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                                            <span class="n">control_redox</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                            <span class="n">fo2_init</span><span class="o">=-</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">fo2_final</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">,</span>
+                                            <span class="n">nb_values</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="final-preparation-for-import-in-gp-model">
+<h2>Final preparation for import in GP model<a class="headerlink" href="#final-preparation-for-import-in-gp-model" title="Link to this heading"></a></h2>
+<p>To prepare the final array for predictions, use the function <cite>gpvisc.scale_for_gaussianprocess()</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X_for_GP</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">scale_for_gaussianprocess</span><span class="p">(</span><span class="n">temperature_vector</span><span class="p">,</span> <span class="n">pressure_vector</span><span class="p">,</span> <span class="n">compo_for_GP</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you used the above described helper functions, here is how you can scale things:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tpxi_scaled</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">scale_for_gaussianprocess</span><span class="p">(</span>
+                           <span class="n">Inputs_</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;T&quot;</span><span class="p">],</span> <span class="c1"># temperature input</span>
+                           <span class="n">Inputs_</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;P&quot;</span><span class="p">],</span> <span class="c1"># pressure input</span>
+                           <span class="n">Inputs_</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="n">gpvisc</span><span class="o">.</span><span class="n">list_oxides</span><span class="p">()]</span> <span class="c1"># composition input</span>
+                           <span class="p">)</span>
+</pre></div>
+</div>
+<p>You are now ready to perform a query using the GP model!</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="predictions.html" class="btn btn-neutral float-right" title="Predictions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Charles Le Losq, Clément Ferraina.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

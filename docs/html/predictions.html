@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Predictions &mdash; gpvisc 0.3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=4621528c"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Inputs" href="inputs.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            gpvisc
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="inputs.html">Inputs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Predictions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#making-a-prediction">Making a prediction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prediction-outputs">Prediction outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-for-extrapolation">Checking for extrapolation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="web.html">Web service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">gpvisc</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Predictions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/predictions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="predictions">
+<h1>Predictions<a class="headerlink" href="#predictions" title="Link to this heading"></a></h1>
+<section id="making-a-prediction">
+<h2>Making a prediction<a class="headerlink" href="#making-a-prediction" title="Link to this heading"></a></h2>
+<p>After data preparation (see <a class="reference internal" href="inputs.html#inputs"><span class="std std-ref">Inputs</span></a>), you first need to import the model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">gp_model</span><span class="p">,</span> <span class="n">likelihood</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">load_gp_model</span><span class="p">(</span><span class="n">model_number</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can use a GPU if you want too (predictions are around 10 times faster on GPU than on CPU). To do so, you can use the helper function to get the GPU</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">gpvisc</span><span class="o">.</span><span class="n">get_device</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>at the beginning of your code. Make sure your GPU is available and detected by PyTorch prior to this. Beware that if you GPU has a small memory (4 Go or less), you may run into memory overflow problems. In this case, use the CPU.</p>
+<p>In general, we encourage the use of a GPU as we saw differences in the predictive performance when querying results from calculations performed on the CPU and on the GPU. We assign those to floating point errors that slightly affect the performance of the models. Best performance are associated with the use of the GPU.</p>
+<p>You can also import a different model number (1, 2 or 3), if you want to test them. In interpolation, they offer very similar results but upon extrapolation, the results diverge significantly. You can try this to see if results are consistent and thus reliable, or not (extrapolation case).</p>
+<p>After importing the model, make your predictions using the <cite>gpvisc.predict</cite> function. It takes in input a numpy array with your temperature, pressure and composition. It handles automatically tranfers to torch.FloatTensor type and to the GPU, if you indicate <cite>device=”GPU”</cite> for instance in the function (this is an optinal argument).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viscosity_mean</span><span class="p">,</span> <span class="n">viscosity_std</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">tpxi_scaled</span><span class="p">,</span> <span class="n">gp_model</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that you can also query predictions from the mean Greybox artificial neural network that is used in the GP model as the mean function. This model provides predictions that are a little bit less accurate, but inference time are much faster:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">viscosity</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">tpxi_scaled</span><span class="p">,</span> <span class="n">gp_model</span><span class="p">,</span> <span class="n">likelihood</span><span class="p">,</span> <span class="n">model_to_use</span> <span class="o">=</span> <span class="s2">&quot;ann&quot;</span><span class="p">,</span> <span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case, only one value per query is returned. No uncertainty determination is performed.</p>
+</section>
+<section id="prediction-outputs">
+<h2>Prediction outputs<a class="headerlink" href="#prediction-outputs" title="Link to this heading"></a></h2>
+<p>The <cite>gpvisc.predict</cite> function outputs the mean and the standard deviation of the Gaussian process. Therefore, in the above example, <cite>viscosity_mean</cite> is the predicted viscosity in $log_{10}$ Pa$cdot$s and <cite>viscosity_std</cite> is the associated standard error.</p>
+<p>For further details, please consult the Simple_prediction.ipynb and the Peridotite.ipynb Jupyter notebooks, see the section <a class="reference internal" href="tutorials.html"><span class="doc">Tutorials</span></a>.</p>
+</section>
+<section id="checking-for-extrapolation">
+<h2>Checking for extrapolation<a class="headerlink" href="#checking-for-extrapolation" title="Link to this heading"></a></h2>
+<p>ML algorithms are not very good at performing extrapolation, i.e. at providing estimates for inputs that are outside the range of the training data. At room pressure, the database of the <cite>gpvisc`</cite> model is very broad in terms of compositions and temperature. It thus is unlikely that users ask for queries that are in the “extrapolative regime”, i.e. querying viscosity predictions for compositions and temperatures outside the domain covered by the database. But it can happen. At high pressure, this is even more true because the high pressure portion of the database is sparse, owing to the rarity of high pressure viscosity data on silicate melts.</p>
+<p>Therefore, when asking for predictions for “exotic” compositions or at high pressure, we recommend checking that the model is not extrapolating. To do so, one simply compares the predictions of the three provided GP models. If predictions are comparable within error bars, they are robust. If they diverge significantly, this indicates that the model is extrapolating and that results are probably not robust.</p>
+<p>For code implementation, please see the notebook <a class="reference external" href="https://github.com/charlesll">Extrapolations.ipynb</a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="inputs.html" class="btn btn-neutral float-left" title="Inputs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Charles Le Losq, Clément Ferraina.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
