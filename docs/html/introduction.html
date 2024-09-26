@@ -21,7 +21,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Inputs" href="inputs.html" />
+    <link rel="next" title="Installation" href="installation.html" />
     <link rel="prev" title="Welcome to gpvisc’s documentation!" href="index.html" /> 
 </head>
 
@@ -51,10 +51,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#the-gp-model">The GP model</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="inputs.html">Inputs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="predictions.html">Predictions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="web.html">Web service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
 
@@ -85,12 +87,12 @@
   <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
 <p>The gpvisc package is a companion code for the following publication:</p>
-<p>Le Losq C., Ferraina C., Boukaré C.E., Sossi P. (2024) A generalist machine learning model of aluminosilicate melt viscosity: application for exploring the surface properties of the <em>55 Cancri e</em> magma ocean. ArXiV TO ADD</p>
+<p>Le Losq C., Ferraina C., Sossi P., Boukaré C.E. (2024) A general machine learning model of aluminosilicate melt viscosity and its application to the surface properties of dry lava planets. ArXiV TO ADD</p>
 <p>In this paper, we describe a new database of phospho-alumino-silicate melt viscosity. Using it, we train and test several machine learning algorithms. We demonstrate that combining a greybox artificial neural network with a Gaussian process provides good results. We apply the new model and various phase diagram calculations to explore the surface properties of the exoplanet <a class="reference external" href="https://science.nasa.gov/exoplanet-catalog/k2-141-b/">K2-141 b</a>.</p>
 <p>The code to replicate the analysis performed in the paper is available in the folder <cite>code_paper_EPSL</cite> of the Github repository.</p>
 <section id="the-database">
 <h2>The database<a class="headerlink" href="#the-database" title="Link to this heading"></a></h2>
-<p>The handheld database assembled from a manual survey of the existing litterature is available at XXXXX. It contains 16,667 published experimental viscosity measurements for melts in the system SiO<sub>2</sub>-TiO<sub>2</sub>-Al<sub>2</sub>O<sub>3</sub>-FeO-Fe<sub>2</sub>O<sub>3</sub>-MnO-Na<sub>2</sub>O-K<sub>2</sub>O-MgO-CaO-P<sub>2</sub>O<sub>5</sub>-H<sub>2</sub>O, spanning superliquidus to undercooled temperatures and pressures up to 30 GPa. When available, the fractions of Fe as FeO and Fe<sub>2</sub>O<sub>3</sub>were compiled. When not available, they were calculated using the Borisov model; in the case no oxygen fugacity details were provided in the publications, we assumed that melts viscosity were measured in air. We provide a function to easily calculate the ratio of ferrous and ferric iron using this model, see the documentation about this feature here: <a class="reference internal" href="inputs.html"><span class="doc">Inputs</span></a>.</p>
+<p>The handheld database assembled from a manual survey of the existing litterature contains 16,667 published experimental viscosity measurements for melts in the system SiO<sub>2</sub>-TiO<sub>2</sub>-Al<sub>2</sub>O<sub>3</sub>-FeO-Fe<sub>2</sub>O<sub>3</sub>-MnO-Na<sub>2</sub>O-K<sub>2</sub>O-MgO-CaO-P<sub>2</sub>O<sub>5</sub>-H<sub>2</sub>O, spanning superliquidus to undercooled temperatures and pressures up to 30 GPa. When available, the fractions of Fe as FeO and Fe<sub>2</sub>O<sub>3</sub>were compiled. When not available, they were calculated using the Borisov model; in the case no oxygen fugacity details were provided in the publications, we assumed that melts viscosity were measured in air. We provide a function to easily calculate the ratio of ferrous and ferric iron using this model, see the documentation about this feature here: <a class="reference internal" href="inputs.html"><span class="doc">Inputs</span></a>.</p>
 <p>We also added experimental viscosity data from SciGlass, for melt compositions that were not appearing already in the handheld database. For that, we use the <a class="reference external" href="https://github.com/drcassar/glasspy/tree/master">GlassPy</a> library.  A total of 12,231 data points from 3,591 different melt compositions were added.</p>
 <p>The final database contains 28,868 viscosity measurements. It includes data from unary, binary, ternary, quaternary, and multivalent melt compositions, at temperatures spanning superliquidus to undercooled conditions and pressures up to 30 GPa.</p>
 <p>The data are available in the folder <a class="reference external" href="https://github.com/charlesll/gpvisc/tree/master/code_paper_EPSL/additional_data">code_paper_EPSL/additional_data</a> and here:</p>
@@ -112,7 +114,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to gpvisc’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="inputs.html" class="btn btn-neutral float-right" title="Inputs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

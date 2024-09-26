@@ -25,6 +25,7 @@ Le Losq C., Ferraina C., Sossi P. A., Boukaré C.-É. (2024). charlesll/gpvisc: 
    :caption: Contents:
 
    introduction
+   installation
    inputs
    predictions
    tutorials 
