@@ -29,7 +29,8 @@ def generate_query_single(sio2=100.0,
     """Generates a query DataFrame for a single magma composition 
        with multiple P/T values.
 
-    Args:
+    Parameters
+    ----------
         sio2, tio2, ..., h2o: Oxide weight percentages (if composition_mole=False) or 
             mole fractions (if composition_mole=True). Defaults to pure SiO2.
         composition_mole: Boolean indicating if input composition is in mole fraction (True) 
@@ -41,7 +42,8 @@ def generate_query_single(sio2=100.0,
         redox_model : string indicating which model to use. See the documentation of the function redox() for details. Default: "B2018".
         nb_values: Number of P/T points to generate within the specified ranges. Defaults to 100.
 
-    Returns:
+    Returns
+    -------
         pd.DataFrame: A DataFrame containing the query with columns for T, P, and oxide compositions.
     """
     
@@ -80,7 +82,8 @@ def generate_query_redox(db, fo2_vector, model="B2018"):
     `fo2_vector`. The FeO and Fe2O3 mole fractions are then adjusted accordingly, 
     maintaining the total iron content. Finally, the composition is renormalized.
 
-    Args:
+    Parameters
+    ----------
         db : pandas DataFrame containing melt composition data, including columns for 'feo', 'fe2o3', and 'T' (temperature).
         fo2_vector :  NumPy array or list containing log10(fO2) values corresponding to each row in `db`.
         model : string indicating which model to use. See the documentation of the function redox() for details. Default: "B2018".
@@ -88,10 +91,12 @@ def generate_query_redox(db, fo2_vector, model="B2018"):
         pandas DataFrame: A copy of the input DataFrame with updated FeO and Fe2O3 mole fractions
                           and renormalized composition.
 
-    Raises:
+    Raises
+    ------
         ValueError: If the lengths of `db` and `fo2_vector` do not match.
 
-    Note:
+    Note
+    ----
         This function assumes that the input DataFrame `db` is already in mole fraction units.
     """
     
@@ -124,7 +129,8 @@ def generate_query_range(
     """Generates a query DataFrame for multiple magma compositions within specified ranges,
        each with multiple P/T values.
 
-    Args:
+    Parameters
+    ----------
         oxide_ranges: A dictionary specifying the initial and final values for each oxide.
             Keys should be oxide names (e.g., 'SiO2', 'TiO2'), and values should be lists or tuples 
             of length 2: [min_value, max_value].
@@ -137,7 +143,8 @@ def generate_query_range(
         redox_model : string indicating which model to use. See the documentation of the function redox() for details. Default: "B2018".
         nb_values: Number of values to generate within each oxide range (and for T and P).
 
-    Returns:
+    Returns
+    -------
         pd.DataFrame: A DataFrame containing the query with columns for T, P, 
                       oxide compositions, and a composition ID.
     """
