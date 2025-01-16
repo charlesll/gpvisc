@@ -1,3 +1,6 @@
+# (c) Charles Le Losq 2024
+# see embedded licence file
+
 import gpvisc
 import numpy as np
 import pandas as pd

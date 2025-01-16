@@ -9,15 +9,6 @@ import pandas as pd
 
 from sklearn.model_selection import StratifiedGroupKFold
 from sklearn import model_selection
-#from sklearn.preprocessing import StandardScaler
-#from sklearn.pipeline import make_pipeline
-#from sklearn.preprocessing import SplineTransformer
-#from sklearn.linear_model import HuberRegressor
-from sklearn.metrics import (
-    mean_squared_error,
-    median_absolute_error,
-    r2_score,
-)
 
 from scipy.special import erf
 
@@ -1047,81 +1038,6 @@ def scale_for_gaussianprocess(T, P, C):
     # Concatenate the data and return
     return np.concatenate((T_scaled, P_scaled, C_scaled), axis=1)
     
-########################################
-# ERROR CALCULATIONS
-########################################
-
-
-def evaluate_blackbox_model(ds, model, model_name="Don't forget this..."):
-
-    y_train_pred = model.predict(ds.TPX_train_scaled)
-    y_valid_pred = model.predict(ds.TPX_valid_scaled)
-    y_test_pred = model.predict(ds.TPX_test_scaled)
-
-    mse_train = mean_squared_error(ds.y_train, y_train_pred, squared=False)
-    mse_valid = mean_squared_error(ds.y_valid, y_valid_pred, squared=False)
-    mse_test = mean_squared_error(ds.y_test, y_test_pred, squared=False)
-
-    r2_train = r2_score(ds.y_train, y_train_pred)
-    r2_valid = r2_score(ds.y_valid, y_valid_pred)
-    r2_test = r2_score(ds.y_test, y_test_pred)
-
-    # Stats data
-    print(model_name)
-    print(
-        "Root Mean Square Errors:",
-        "\n",
-        "Train    %.2f" % mse_train,
-        "\n",
-        "Valid    %.2f" % mse_valid,
-        "\n",
-        "Test     %.2f" % mse_test,
-        "\n" "Coefficient of Determination:",
-        "\n",
-        "Train    %.2f" % r2_train,
-        "\n",
-        "Valid    %.2f" % r2_valid,
-        "\n",
-        "Test     %.2f" % r2_test,
-    )
-
-
-def residual_error_calc(y, y_pred, mode="BOTH"):
-    """returns the root-mean-squared-error (RMSE) and median absolute error (MAE) between y an y_pred
-
-    Parameters
-    ----------
-    y : array-like
-        the true values
-    y_pred : array-like
-        the predicted values
-    mode : str, optional
-        the type of error to be calculated (RMSE, MAE or BOTH). By default "BOTH"
-
-    Returns
-    -------
-    float or tuple
-        the error or a tuple of errors
-
-    """
-
-    # check the type of input arrays and convert them to numpy if necessary
-    # if type(y) == torch.Tensor:
-    #    y = y.cpu().detach().numpy()
-    # if type(y_pred) == torch.Tensor:
-    #    y_pred = y_pred.cpu().detach().numpy()
-
-    # now perform the relevant calculation
-    if mode == "RMSE":  # root mean square error
-        return mean_squared_error(y, y_pred, squared=False)
-    elif mode == "MAE":  # median absolute deviation
-        return median_absolute_error(y, y_pred)
-    elif mode == "BOTH":
-        rmse = mean_squared_error(y, y_pred, squared=False)
-        mae = median_absolute_error(y, y_pred)
-        return rmse, mae
-
-
 ########################################
 # VISCOSITY MODELS
 ########################################

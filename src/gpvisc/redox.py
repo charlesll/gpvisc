@@ -1,12 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Friday 16 March 2018
-
-@author: Charles LE LOSQ
-
-Calculation of the structure of silicate melts
-
-"""
+# (c) Charles Le Losq 2024
+# see embedded licence file
 import numpy as np
 
 def redox(chimie,fo2,T, model="KC1991", P=0.0001):
