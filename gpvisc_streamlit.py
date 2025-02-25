@@ -1,6 +1,4 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import gpvisc
 import plotly.graph_objects as go
