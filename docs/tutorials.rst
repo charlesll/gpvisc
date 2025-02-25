@@ -32,3 +32,8 @@ Benchmark speed
 --------------------
 
 The notebook `Speed_test.ipynb <https://github.com/charlesll/gpvisc/blob/master/examples/Speed_test.ipynb>`_ allows benchmarking the speed of the GP and Greybox ANN models on your CPU and GPU.
+
+Comparison to Giordano et al. 2008
+------------------------------------
+
+The notebook `Giordano2008_comparison.ipynb <https://github.com/charlesll/gpvisc/blob/master/examples/Giordano2008_comparison.ipynb>`_ shows a comparison between predictions made by the model from Giordano et al. (2008) and gpvisc, on the gpvisc database.

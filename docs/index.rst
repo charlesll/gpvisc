@@ -18,7 +18,7 @@ Please follow the tutorials of this documentation to perform predictions!
 
 If you use this package, please cite it using this citation key:
 
-Le Losq C., Ferraina C., Sossi P. A., Boukaré C.-É. (2024). charlesll/gpvisc: v0.3.3 (v0.3.3). Zenodo. `https://doi.org/10.5281/zenodo.13843250 <https://doi.org/10.5281/zenodo.13843250>`_
+Le Losq C., Ferraina C., Sossi P. A., Boukaré C.-É. (2024). gpvisc. Zenodo. `https://doi.org/10.5281/zenodo.13843250 <https://doi.org/10.5281/zenodo.13843250>`_
 
 .. toctree::
    :maxdepth: 2

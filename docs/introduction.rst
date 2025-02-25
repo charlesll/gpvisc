@@ -1,9 +1,9 @@
 Introduction
 ============
 
-The gpvisc package is a companion code for the following publication:
+gpvisc is a Python library that provides access to the models trained in the context of the following publication:
 
-Le Losq C., Ferraina C., Sossi P., Boukaré C.E. (2024) A general machine learning model of aluminosilicate melt viscosity and its application to the surface properties of dry lava planets. ArXiV TO ADD
+Le Losq C., Ferraina C., Sossi P. A., Boukaré C.-É. (2025) A general machine learning model of aluminosilicate melt viscosity and its application to the surface properties of dry lava planets. Earth and Planetary Science Letters, `https://doi.org/10/1016/j.epsl.2025.119287 <https://doi.org/10/1016/j.epsl.2025.119287>`_
 
 In this paper, we describe a new database of phospho-alumino-silicate melt viscosity. Using it, we train and test several machine learning algorithms. We demonstrate that combining a greybox artificial neural network with a Gaussian process provides good results. We apply the new model and various phase diagram calculations to explore the surface properties of the exoplanet `K2-141 b <https://science.nasa.gov/exoplanet-catalog/k2-141-b/>`_.
 
@@ -20,7 +20,7 @@ The final database contains 28,868 viscosity measurements. It includes data from
 
 The data are available in the folder `code_paper_EPSL/additional_data <https://github.com/charlesll/gpvisc/tree/master/code_paper_EPSL/additional_data>`_ and here:
 
-Ferraina, Clement; Baldoni, Barbara; Le Losq, Charles, 2024, "Silicate melt viscosity database for gpvisc", `https://doi.org/10.18715/IPGP.2024.lycv4gsa <https://doi.org/10.18715/IPGP.2024.lycv4gsa>`_, IPGP Research Collection, DRAFT VERSION 
+Ferraina C., Baldoni B., Le Losq C. (2024) Silicate melt viscosity database for gpvisc, `https://doi.org/10.18715/IPGP.2024.lycv4gsa <https://doi.org/10.18715/IPGP.2024.lycv4gsa>`_, IPGP Research Collection, V1, UNF:6:odPJx0nGtBwuiwYBuyZEtA== [fileUNF] 
 
 The GP model
 ------------
