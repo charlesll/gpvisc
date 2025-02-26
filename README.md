@@ -8,6 +8,7 @@ GPVisc is a Python module containing a Gaussian Process - Artificial Neural Netw
 
 - **Documentation:** http://charlesll.github.io/gpvisc/html/index.html
 - **Examples:** https://github.com/charlesll/gpvisc/tree/master/examples
+- **Web app** https://gpvisc.streamlit.app/
 - **Source code:** https://github.com/charlesll/gpvisc/tree/master/src/gpvisc
 - **License:** https://github.com/charlesll/gpvisc/tree/master/LICENSE.txt
 - **Contributing:** https://github.com/charlesll/gpvisc/blob/master/CONTRIBUTING.md
