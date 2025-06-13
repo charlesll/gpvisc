@@ -13,18 +13,23 @@ st.markdown("""
             (c) Le Losq C. and co. 2024-2025
             
             gpvisc is a Python library providing greybox neural network and Gaussian process models
-            for the prediction of the viscosity of melts.
+            for the prediction of the viscosity of water-bearing phospho-alumino-silicate melts.
 
-            This is an easy to use GUI interface, but slow.
+            This is an easy to use GUI interface, warning: it can be slow to load due to the speed of Streamlit servers.
 
-            Models can also be used with Python, and can leverage the use of GPUs
-            to provide much faster predictions.
+            Change the parameters on the left. For the model, you can select between:
+                - the Gaussian Process model - a bit slower but excellent accuracy, and provides error bars
+                - the Artificial Neural Network model - faster (x10) but slightly less accurate in average, and do not provide error bars
             
+            You can also query the outputs of three models to check for extrapolation : if they agree within error bars, predictions are robust.
+
+            A python package is also available, see 
+            its [documentation](https://charlesll.github.io/gpvisc/html/index.html).
+            as well as the [examples](https://github.com/charlesll/gpvisc/tree/master/examples).
+
             For details
             check the paper on [EPSL](https://doi.org/10/1016/j.epsl.2025.119287),
-            have a look at the [Github repo](https://github.com/charlesll/gpvisc)
-            and the [documentation](https://charlesll.github.io/gpvisc/html/index.html),
-            as well as the [examples](https://github.com/charlesll/gpvisc/tree/master/examples).
+            have a look at the [Github repo](https://github.com/charlesll/gpvisc)            
             """)
 
 # Add information about the app
@@ -71,16 +76,17 @@ fo2_final = st.sidebar.number_input('Final fO2', value=-1.0)
 nb_values = st.sidebar.number_input('Number of data points', value=50, min_value=2, max_value=1000, step=1)
 
 # Model selection
+model_type = st.sidebar.radio("Select model type:", ("Gaussian Process", "Artificial Neural Network"))
+
 models_to_use = st.sidebar.multiselect(
-    'Select models to use:',
+    'Select models to use (test for extrapolation):',
     ['Model 1', 'Model 2', 'Model 3'],
     default=['Model 1']
 )
 
 # Main calculation functions
 @st.cache_data
-def prepare_input_data(normalized_composition):
-    # Generate query
+def prepare_input_data(normalized_composition, composition_type, T_init, T_final, P_init, P_final, control_redox, fo2_init, fo2_final, nb_values):
     Inputs_ = gpvisc.generate_query_single(
         sio2=normalized_composition['SiO2'], 
         tio2=normalized_composition['TiO2'],
@@ -109,17 +115,21 @@ def prepare_input_data(normalized_composition):
 
     return Inputs_, tpxi_scaled
 
-def calculate_viscosity(tpxi_scaled, model_number):
-    # CPU or GPU?
-    device = gpvisc.get_device()
+# Load models
+@st.cache_resource  # <-- Better choice for ML models
+class load_viscosity_model():
+    """load all models"""
 
-    # Loading the model
-    gp_model, likelihood = gpvisc.load_gp_model(model_number=model_number, device=device)
+    def __init__(self):
+         # Loading the model
+         # CPU or GPU?
+        self.device = gpvisc.get_device()
+        self.model_list = {"1": gpvisc.load_gp_model(model_number=1),
+                           "2": gpvisc.load_gp_model(model_number=2),
+                           "3":gpvisc.load_gp_model(model_number=3)}
 
-    # Predictions
-    visco_mean, visco_std = gpvisc.predict(tpxi_scaled, gp_model, likelihood)
-
-    return visco_mean, visco_std
+# Load once at app startup
+viscosity_models = load_viscosity_model()
 
 # Calculate button
 if st.button('Calculate Viscosity'):
@@ -131,14 +141,26 @@ if st.button('Calculate Viscosity'):
     st.write(pd.DataFrame([normalized_composition]).T.rename(columns={0: f'Normalized {composition_type}'}))
     
     # Prepare input data (this is now done only once)
-    Inputs_, tpxi_scaled = prepare_input_data(normalized_composition)
+    Inputs_, tpxi_scaled = prepare_input_data(
+    normalized_composition,
+    composition_type,
+    T_init, T_final,
+    P_init, P_final,
+    control_redox,
+    fo2_init, fo2_final,
+    nb_values
+    )
 
     # Calculate viscosity for selected models
     results = {}
     for model in models_to_use:
-        model_number = int(model.split()[-1])
-        visco_mean, visco_std = calculate_viscosity(tpxi_scaled, model_number)
-        results[model] = (visco_mean, visco_std)
+        model_number = model.split()[-1]
+        if model_type == "Gaussian Process":
+            gp, likelihood = viscosity_models.model_list[model_number]
+            results[model] = gpvisc.predict(tpxi_scaled, gp, likelihood)
+        else:
+            gp, likelihood = viscosity_models.model_list[model_number]
+            results[model] = gpvisc.predict(tpxi_scaled, gp, likelihood, model_to_use="ann")
 
     # Create Plotly figure
     fig = go.Figure()
@@ -147,16 +169,22 @@ if st.button('Calculate Viscosity'):
     colors = {'Model 1': 'red', 'Model 2': 'blue', 'Model 3': 'green'}
 
     # Add traces for selected models
-    for model, (visco_mean, visco_std) in results.items():
-        fig.add_trace(go.Scatter(x=Inputs_.loc[:,"T"], y=visco_mean,
-                        mode='lines', name=f'{model} Mean',
-                        line=dict(color=colors[model])))
-        fig.add_trace(go.Scatter(x=Inputs_.loc[:,"T"], y=visco_mean-visco_std,
-                        mode='lines', name=f'{model} Lower Bound (1-sigma)',
-                        line=dict(color=colors[model], dash='dash')))
-        fig.add_trace(go.Scatter(x=Inputs_.loc[:,"T"], y=visco_mean+visco_std,
-                        mode='lines', name=f'{model} Upper Bound (1-sigma)',
-                        line=dict(color=colors[model], dash='dash')))
+    if model_type == "Gaussian Process":
+        for model, (visco_mean, visco_std) in results.items():
+            fig.add_trace(go.Scatter(x=Inputs_.loc[:,"T"], y=visco_mean,
+                            mode='lines', name=f'{model} Mean',
+                            line=dict(color=colors[model])))
+            fig.add_trace(go.Scatter(x=Inputs_.loc[:,"T"], y=visco_mean-visco_std,
+                            mode='lines', name=f'{model} Lower Bound (1-sigma)',
+                            line=dict(color=colors[model], dash='dash')))
+            fig.add_trace(go.Scatter(x=Inputs_.loc[:,"T"], y=visco_mean+visco_std,
+                            mode='lines', name=f'{model} Upper Bound (1-sigma)',
+                            line=dict(color=colors[model], dash='dash')))
+    else:
+        for model, visco_mean in results.items():
+            fig.add_trace(go.Scatter(x=Inputs_.loc[:,"T"], y=visco_mean,
+                            mode='lines', name=f'{model} Mean',
+                            line=dict(color=colors[model])))
 
     # Create buttons for model visibility toggle
     buttons = []
@@ -197,12 +225,21 @@ if st.button('Calculate Viscosity'):
     st.plotly_chart(fig)
 
     # Display data for selected models
-    for model, (visco_mean, visco_std) in results.items():
-        st.subheader(f'Calculated Data for {model}')
-        df_result = pd.DataFrame({
-            'Temperature (K)': Inputs_.loc[:,"T"],
-            'Viscosity (log₁₀ Pa·s)': visco_mean,
-            'Standard Deviation': visco_std
-        })
-        st.dataframe(df_result)
+    if model_type == "Gaussian Process":
+        for model, (visco_mean, visco_std) in results.items():
+            st.subheader(f'Calculated Data for {model}')
+            df_result = pd.DataFrame({
+                'Temperature (K)': Inputs_.loc[:,"T"],
+                'Viscosity (log₁₀ Pa·s)': visco_mean,
+                'Standard Deviation': visco_std
+            })
+            st.dataframe(df_result)
+    else:
+        for model, visco_mean in results.items():
+            st.subheader(f'Calculated Data for {model}')
+            df_result = pd.DataFrame({
+                'Temperature (K)': Inputs_.loc[:,"T"],
+                'Viscosity (log₁₀ Pa·s)': visco_mean
+            })
+            st.dataframe(df_result)
 
