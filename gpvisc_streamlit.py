@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import gpvisc
 import plotly.graph_objects as go
+from scipy.optimize import curve_fit
 
 # Set page title
 st.set_page_config(page_title="gpvisc", layout="wide")
@@ -12,24 +13,24 @@ st.title('gpvisc: Melt Viscosity Calculator')
 st.markdown("""
             (c) Le Losq C. and co. 2024-2025
             
-            gpvisc is a Python library providing greybox neural network and Gaussian process models
-            for the prediction of the viscosity of water-bearing phospho-alumino-silicate melts.
+            **gpvisc is a Python library providing greybox neural network and Gaussian process models
+            for the prediction of the viscosity of water-bearing phospho-alumino-silicate melts.**
 
-            This is an easy to use GUI interface, warning: it can be slow to load due to the speed of Streamlit servers.
+            **This is an easy to use GUI interface.** Warning: it can be slow to load due to the speed of Streamlit servers.
 
-            Change the parameters on the left. For the model, you can select between:
-                - the Gaussian Process model - a bit slower but excellent accuracy, and provides error bars
-                - the Artificial Neural Network model - faster (x10) but slightly less accurate in average, and do not provide error bars
+            Change the parameters on the left panel. For the model, you can select between:
+
+            - the Gaussian Process model - a bit slower but excellent accuracy, and provides error bars.
+                
+            - the Artificial Neural Network model - faster (x10) but slightly less accurate in average, and do not provide error bars.
             
             You can also query the outputs of three models to check for extrapolation : if they agree within error bars, predictions are robust.
 
-            A python package is also available, see 
-            its [documentation](https://charlesll.github.io/gpvisc/html/index.html).
-            as well as the [examples](https://github.com/charlesll/gpvisc/tree/master/examples).
-
-            For details
-            check the paper on [EPSL](https://doi.org/10/1016/j.epsl.2025.119287),
-            have a look at the [Github repo](https://github.com/charlesll/gpvisc)            
+            **A python package is also available. For more information, see**
+            - [the gpvisc package documentation](https://charlesll.github.io/gpvisc/html/index.html).
+            - [the example notebooks](https://github.com/charlesll/gpvisc/tree/master/examples).
+            - [check the paper on EPSL](https://doi.org/10.1016/j.epsl.2025.119287),
+            - [have a look at the Github repo](https://github.com/charlesll/gpvisc)            
             """)
 
 # Add information about the app
@@ -225,6 +226,11 @@ if st.button('Calculate Viscosity'):
     st.plotly_chart(fig)
 
     # Display data for selected models
+
+    # we will perform a quick VFT fit of the tabular data
+    # we assume an infinite viscosity of -4.71
+    VFT_Acte = lambda T, A, B, C : gpvisc.VFT(T, A, B, C)
+
     if model_type == "Gaussian Process":
         for model, (visco_mean, visco_std) in results.items():
             st.subheader(f'Calculated Data for {model}')
@@ -234,6 +240,15 @@ if st.button('Calculate Viscosity'):
                 'Standard Deviation': visco_std
             })
             st.dataframe(df_result)
+
+            # # VFT calc
+            # st.write("VFT parameters are")
+            # popt, pcov = curve_fit(gpvisc.VFT, Inputs_.loc[:,"T"], visco_mean)
+            # st.write('A : {:.2f}, B: {:.1f}, C: {:.1f}'.format(popt[0], popt[1], popt[2]))
+            
+            # st.write("VFT fitting error")
+            # from sklearn.metrics import root_mean_squared_error as rmse
+            # st.write(rmse(VFT_Acte(Inputs_.loc[:,"T"], popt[0], popt[1], popt[2]), visco_mean))
     else:
         for model, visco_mean in results.items():
             st.subheader(f'Calculated Data for {model}')
@@ -243,3 +258,16 @@ if st.button('Calculate Viscosity'):
             })
             st.dataframe(df_result)
 
+            # # VFT calc
+            # popt, pcov = curve_fit(gpvisc.VFT, Inputs_.loc[:,"T"], visco_mean, p0=[-4.71, 8000, 500])
+            # st.warning("Parameters of the VFT equation A + B/(T-C) are A : {:.2f}, B: {:.1f}, C: {:.1f}. Those are adjusted for interpolation of the tabular values only! In general, prefer using directly the outputs of the model 1.".format(popt[0],popt[1],popt[2]))
+
+            # st.write("VFT fitting error")
+            # from sklearn.metrics import root_mean_squared_error as rmse
+            # st.write(rmse(VFT_Acte(Inputs_.loc[:,"T"], popt[0], popt[1], popt[2]), visco_mean))
+
+    
+    
+    
+    
+    

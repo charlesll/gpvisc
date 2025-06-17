@@ -71,6 +71,23 @@ class mean_f(torch.nn.Module):
         
         return torch.reshape(viscosity, (len(viscosity),))
     
+    def get_vft_params(self, x):
+        # get different variables
+        k = torch.reshape(x[:,0], (x.shape[0],1)) # inverse of T
+        compo = x[:,1:] # pressure and melt composition
+
+        # calculation in the neural network
+        for linear in self.linears:
+            compo = linear(compo)
+            compo  = self.dropout(self.activation_function(compo))
+        output_ann = torch.exp(self.out(compo))
+        #output_ann = self.out(compo)
+        
+        # get B and C in the good shape
+        B  = torch.reshape(output_ann[:,0], (output_ann.shape[0],1))
+        C  = torch.reshape(output_ann[:,1], (output_ann.shape[0],1))
+        return B, C
+    
 class mean_f_P(torch.nn.Module):
     """greybox artificial neural network for using as a mean function of the GP model
     
@@ -302,7 +319,6 @@ def predict(x, gp_model, likelihood, model_to_use="gp", device="cpu"):
          If using "ann", standard deviations on prediction will NOT be provided.
     device : str, optional (default="cpu")
         Device to perform computations on ("cpu" or "cuda").
-
     Returns
     =======
     mean : ndarray
