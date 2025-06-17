@@ -27,14 +27,14 @@ st.markdown("""
             You can also query the outputs of three models to check for extrapolation : if they agree within error bars, predictions are robust.
 
             **A python package is also available. For more information, see**
-            - [the gpvisc package documentation](https://charlesll.github.io/gpvisc/html/index.html).
+            - [the gpvisc package documentation](https://gpvisc.readthedocs.io).
             - [the example notebooks](https://github.com/charlesll/gpvisc/tree/master/examples).
             - [check the paper on EPSL](https://doi.org/10.1016/j.epsl.2025.119287),
             - [have a look at the Github repo](https://github.com/charlesll/gpvisc)            
             """)
 
 # Add information about the app
-st.sidebar.info('Enter below you melt composition, temperature, and pressure. Then, indicate if you want to query predictions from only model 1 (the best), or if you want to check for extrapolation (see paper) by comparing results from two or three models (slower!).')
+st.sidebar.info('Enter below the melt composition, temperature, and pressure. Then, indicate if you want to query predictions from only model 1 (the best), or if you want to check for extrapolation (see paper) by comparing results from two or three models (slower!).')
 
 st.sidebar.markdown('---')
 

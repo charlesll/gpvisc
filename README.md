@@ -6,7 +6,7 @@
 
 GPVisc is a Python module containing a Gaussian Process - Artificial Neural Network of melt viscosity.
 
-- **Documentation:** http://charlesll.github.io/gpvisc/html/index.html
+- **Documentation:** https://gpvisc.readthedocs.io
 - **Examples:** https://github.com/charlesll/gpvisc/tree/master/examples
 - **Web app** https://gpvisc.streamlit.app/
 - **Source code:** https://github.com/charlesll/gpvisc/tree/master/src/gpvisc
